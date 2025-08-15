@@ -449,10 +449,13 @@ class ThemeDecoder {
   ///  * [decodeIconThemeData]
   ///  * [decodeSystemUiOverlayStyle]
   ///  * [decodeTextStyle]
-  static AppBarTheme? decodeAppBarTheme(dynamic value, {bool validate = true}) {
-    AppBarTheme? result;
+  static AppBarThemeData? decodeAppBarThemeData(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    AppBarThemeData? result;
 
-    if (value is AppBarTheme) {
+    if (value is AppBarThemeData) {
       result = value;
     } else if (value != null) {
       assert(
@@ -462,7 +465,7 @@ class ThemeDecoder {
           validate: validate,
         ),
       );
-      result = AppBarTheme(
+      result = AppBarThemeData(
         actionsIconTheme: decodeIconThemeData(
           value['actionsIconTheme'],
           validate: false,
@@ -1193,13 +1196,13 @@ class ThemeDecoder {
   ///  * [decodeColor]
   ///  * [decodeEdgeInsetsGeometry]
   ///  * [decodeNotchedShape]
-  static BottomAppBarTheme? decodeBottomAppBarTheme(
+  static BottomAppBarThemeData? decodeBottomAppBarThemeData(
     dynamic value, {
     bool validate = true,
   }) {
-    BottomAppBarTheme? result;
+    BottomAppBarThemeData? result;
 
-    if (value is BottomAppBarTheme) {
+    if (value is BottomAppBarThemeData) {
       result = value;
     } else if (value != null) {
       assert(
@@ -1209,7 +1212,7 @@ class ThemeDecoder {
           validate: validate,
         ),
       );
-      result = BottomAppBarTheme(
+      result = BottomAppBarThemeData(
         color: decodeColor(value['color'], validate: false),
         elevation: JsonClass.maybeParseDouble(value['elevation']),
         height: JsonClass.maybeParseDouble(value['height']),
@@ -3149,7 +3152,7 @@ class ThemeDecoder {
   ///  * [decodeBorderSide]
   ///  * [decodeButtonStyle]
   ///  * [decodeColor]
-  ///  * [decodeInputDecorationTheme]
+  ///  * [decodeInputDecorationThemeData]
   ///  * [decodeShapeBorder]
   ///  * [decodeTextStyle]
   ///  * [decodeWidgetStatePropertyColor]
@@ -3215,7 +3218,7 @@ class ThemeDecoder {
           value['headerHelpStyle'],
           validate: false,
         ),
-        inputDecorationTheme: decodeInputDecorationTheme(
+        inputDecorationTheme: decodeInputDecorationThemeData(
           value['inputDecorationTheme'],
           validate: false,
         ),
@@ -3788,7 +3791,7 @@ class ThemeDecoder {
   /// ```
   ///
   /// See also:
-  ///  * [decodeInputDecorationTheme]
+  ///  * [decodeInputDecorationThemeData]
   ///  * [decodeMenuStyle]
   ///  * [decodeTextStyle]
   static DropdownMenuThemeData? decodeDropdownMenuThemeData(
@@ -3809,7 +3812,7 @@ class ThemeDecoder {
       );
 
       result = DropdownMenuThemeData(
-        inputDecorationTheme: decodeInputDecorationTheme(
+        inputDecorationTheme: decodeInputDecorationThemeData(
           value['inputDecorationTheme'],
           validate: false,
         ),
@@ -5536,13 +5539,13 @@ class ThemeDecoder {
   ///  * [decodeInputBorder]
   ///  * [decodeFloatingLabelBehavior]
   ///  * [decodeTextStyle]
-  static InputDecorationTheme? decodeInputDecorationTheme(
+  static InputDecorationThemeData? decodeInputDecorationThemeData(
     dynamic value, {
     bool validate = true,
   }) {
-    InputDecorationTheme? result;
+    InputDecorationThemeData? result;
 
-    if (value is InputDecorationTheme) {
+    if (value is InputDecorationThemeData) {
       result = value;
     } else if (value != null) {
       assert(
@@ -5552,7 +5555,7 @@ class ThemeDecoder {
           validate: validate,
         ),
       );
-      result = InputDecorationTheme(
+      result = InputDecorationThemeData(
         activeIndicatorBorder: decodeBorderSide(
           value['activeIndicatorBorder'],
           validate: false,
@@ -9058,6 +9061,8 @@ class ThemeDecoder {
         'never',
         'onlyForContinuous',
         'onlyForDiscrete',
+        'onDrag'
+            'alwaysVisible',
       ], value);
 
       if (value != null) {
@@ -9070,6 +9075,7 @@ class ThemeDecoder {
         );
         switch (value) {
           case 'always':
+            // ignore: deprecated_member_use
             result = ShowValueIndicator.always;
             break;
 
@@ -9083,6 +9089,14 @@ class ThemeDecoder {
 
           case 'onlyForDiscrete':
             result = ShowValueIndicator.onlyForDiscrete;
+            break;
+
+          case 'onDrag':
+            result = ShowValueIndicator.onDrag;
+            break;
+
+          case 'alwaysVisible':
+            result = ShowValueIndicator.alwaysVisible;
             break;
         }
       }
@@ -11603,7 +11617,7 @@ class ThemeDecoder {
   ///  * [decodeActionIconThemeData]
   ///  * [decodeAppBarTheme]
   ///  * [decodeBadgeThemeData]
-  ///  * [decodeBottomAppBarTheme]
+  ///  * [decodeBottomAppBarThemeData]
   ///  * [decodeBottomNavigationBarThemeData]
   ///  * [decodeBottomSheetThemeData]
   ///  * [decodeBrightness]
@@ -11625,7 +11639,7 @@ class ThemeDecoder {
   ///  * [decodeFloatingActionButtonThemeData]
   ///  * [decodeIconButtonThemeData]
   ///  * [decodeIconThemeData]
-  ///  * [decodeInputDecorationTheme]
+  ///  * [decodeInputDecorationThemeData]
   ///  * [decodeInteractiveInkFeatureFactory]
   ///  * [decodeListTileThemeData]
   ///  * [decodeMaterialBannerThemeData]
@@ -11676,7 +11690,10 @@ class ThemeDecoder {
           value['actionIconThemeData'],
           validate: false,
         ),
-        appBarTheme: decodeAppBarTheme(value['appBarTheme'], validate: false),
+        appBarTheme: decodeAppBarThemeData(
+          value['appBarTheme'],
+          validate: false,
+        ),
         applyElevationOverlayColor: JsonClass.maybeParseBool(
           value['applyElevationOverlayColor'],
         ),
@@ -11685,7 +11702,7 @@ class ThemeDecoder {
           value['bannerTheme'],
           validate: false,
         ),
-        bottomAppBarTheme: decodeBottomAppBarTheme(
+        bottomAppBarTheme: decodeBottomAppBarThemeData(
           value['bottomAppBarTheme'],
           validate: false,
         ),
@@ -11775,7 +11792,7 @@ class ThemeDecoder {
           validate: false,
         ),
         iconTheme: decodeIconThemeData(value['iconTheme'], validate: false),
-        inputDecorationTheme: decodeInputDecorationTheme(
+        inputDecorationTheme: decodeInputDecorationThemeData(
           value['inputDecorationTheme'],
           validate: false,
         ),
@@ -12017,7 +12034,7 @@ class ThemeDecoder {
   ///  * [decodeButtonStyle]
   ///  * [decodeColor]
   ///  * [decodeEdgeInsetsGeometry]
-  ///  * [decodeInputDecorationTheme]
+  ///  * [decodeInputDecorationThemeData]
   ///  * [decodeShapeBorder]
   ///  * [decodeTextStyle]
   ///  * [decodeWidgetStateColor]
@@ -12096,7 +12113,7 @@ class ThemeDecoder {
           value['hourMinuteTextStyle'],
           validate: false,
         ),
-        inputDecorationTheme: decodeInputDecorationTheme(
+        inputDecorationTheme: decodeInputDecorationThemeData(
           value['inputDecorationTheme'],
           validate: false,
         ),

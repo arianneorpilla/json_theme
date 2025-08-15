@@ -379,12 +379,12 @@ void main() {
   });
 
   test('AppBarTheme', () {
-    expect(ThemeDecoder.decodeAppBarTheme(null), null);
-    expect(ThemeEncoder.encodeAppBarTheme(null), null);
+    expect(ThemeDecoder.decodeAppBarThemeData(null), null);
+    expect(ThemeEncoder.encodeAppBarThemeData(null), null);
 
-    const entry = AppBarTheme(
+    const entry = AppBarThemeData(
       actionsPadding: EdgeInsets.all(8.0),
-      color: _kColor,
+      backgroundColor: _kColor,
       centerTitle: true,
       elevation: 6.0,
       foregroundColor: _kColor,
@@ -393,10 +393,10 @@ void main() {
       toolbarHeight: 64.0,
     );
 
-    expect(ThemeDecoder.decodeAppBarTheme(entry), entry);
+    expect(ThemeDecoder.decodeAppBarThemeData(entry), entry);
 
-    final encoded = ThemeEncoder.encodeAppBarTheme(entry);
-    final decoded = ThemeDecoder.decodeAppBarTheme(encoded);
+    final encoded = ThemeEncoder.encodeAppBarThemeData(entry);
+    final decoded = ThemeDecoder.decodeAppBarThemeData(encoded);
 
     expect(
       json.encode(encoded),
@@ -627,10 +627,10 @@ void main() {
   });
 
   test('BottomAppBarTheme', () {
-    expect(ThemeDecoder.decodeBottomAppBarTheme(null), null);
-    expect(ThemeEncoder.encodeBottomAppBarTheme(null), null);
+    expect(ThemeDecoder.decodeBottomAppBarThemeData(null), null);
+    expect(ThemeEncoder.encodeBottomAppBarThemeData(null), null);
 
-    const entry = BottomAppBarTheme(
+    const entry = BottomAppBarThemeData(
       color: _kColor,
       elevation: 8.0,
       height: 20.0,
@@ -640,10 +640,10 @@ void main() {
       surfaceTintColor: _kColor,
     );
 
-    expect(ThemeDecoder.decodeBottomAppBarTheme(entry), entry);
+    expect(ThemeDecoder.decodeBottomAppBarThemeData(entry), entry);
 
-    final encoded = ThemeEncoder.encodeBottomAppBarTheme(entry);
-    final decoded = ThemeDecoder.decodeBottomAppBarTheme(encoded)!;
+    final encoded = ThemeEncoder.encodeBottomAppBarThemeData(entry);
+    final decoded = ThemeDecoder.decodeBottomAppBarThemeData(encoded)!;
 
     expect(encoded, {
       'color': _kColorStr,
@@ -3575,10 +3575,10 @@ void main() {
   });
 
   test('InputDecorationTheme', () {
-    expect(ThemeDecoder.decodeInputDecorationTheme(null), null);
-    expect(ThemeEncoder.encodeInputDecorationTheme(null), null);
+    expect(ThemeDecoder.decodeInputDecorationThemeData(null), null);
+    expect(ThemeEncoder.encodeInputDecorationThemeData(null), null);
 
-    final entry = InputDecorationTheme(
+    final entry = InputDecorationThemeData(
       activeIndicatorBorder: const BorderSide(
         color: _kColor,
         strokeAlign: -2.0,
@@ -3634,10 +3634,10 @@ void main() {
       suffixStyle: const TextStyle(color: Color(0xff000000)),
     );
 
-    expect(ThemeDecoder.decodeInputDecorationTheme(entry), entry);
+    expect(ThemeDecoder.decodeInputDecorationThemeData(entry), entry);
 
-    final encoded = ThemeEncoder.encodeInputDecorationTheme(entry);
-    final decoded = ThemeDecoder.decodeInputDecorationTheme(encoded);
+    final encoded = ThemeEncoder.encodeInputDecorationThemeData(entry);
+    final decoded = ThemeDecoder.decodeInputDecorationThemeData(encoded);
 
     expect(encoded, {
       'activeIndicatorBorder': {
@@ -6377,6 +6377,14 @@ void main() {
     expect(
       ThemeDecoder.decodeShowValueIndicator('onlyForDiscrete'),
       ShowValueIndicator.onlyForDiscrete,
+    );
+    expect(
+      ThemeDecoder.decodeShowValueIndicator('onDrag'),
+      ShowValueIndicator.onDrag,
+    );
+    expect(
+      ThemeDecoder.decodeShowValueIndicator('alwaysVisible'),
+      ShowValueIndicator.alwaysVisible,
     );
 
     expect(
